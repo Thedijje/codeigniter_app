@@ -1,4 +1,48 @@
 <?php
+
+/*
+*	Manual configuration
+*	Seekgeeks.xyz
+*/
+
+
+error_reporting(-1);
+ini_set('memory_limit', '1024M');
+$server 	=	$_SERVER['SERVER_NAME'] ?? 'localhost';
+// echo $server;
+// exit();
+date_default_timezone_set('Asia/Kolkata');
+
+switch($server){
+
+	case 'localhost':
+	/*
+	*	Local system
+	*/
+		define('DB_GROUP','DB_LOCAL');
+		define('BASE_URL','http://localhost/codeigniter_app/');
+		define('APP_V','1.0');
+		define('ENV','development');
+		$app_dir = 'applications/app_1_0/';
+	break;
+
+	case 'http://example.com/':
+		define('DB_GROUP','DB_PRODUCTION');
+		define('BASE_URL','http://example.com/');
+		define('APP_V','1.0');
+		define('ENV','production');
+		$app_dir = 'applications/app_1_0/';
+
+
+	break;
+
+
+	default:
+		
+	header('location:http://example.com/?ref='.base64_encode($server));
+	exit();
+}
+
 /**
  * CodeIgniter
  *
@@ -35,44 +79,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-/*
-*	Manual configuration
-*/
 
-
-	error_reporting(-1);
-	ini_set('memory_limit', '1024M');
-	$server 	=	$_SERVER['SERVER_NAME'] ?? 'staging.mobi-hub.com';
-	// echo $server;
-	// exit();
-	date_default_timezone_set('Asia/Kolkata');
-
-	switch($server){
-
-		case 'localhost':
-		/*
-		*	Local system
-		*/
-			define('DB_GROUP','DB_LOCAL');
-			define('BASE_URL','http://localhost/mobihub/');
-			define('ENV','production');
-			$app_dir = 'applications/app_1_0/';
-		break;
-
-		case 'http://example.com/':
-			define('DB_GROUP','DB_LOCAL');
-			define('BASE_URL','http://example.com/');
-			define('ENV','production');
-			$app_dir = 'applications/app_1_0/';
-
-
-		break;
-
-
-		default:
-			
-		header('location:http://mobi-hub.com/?ref='.base64_encode($server));
-		exit();
 
 
 
@@ -154,7 +161,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = 'application';
+	$application_folder = $app_dir;
 
 /*
  *---------------------------------------------------------------
