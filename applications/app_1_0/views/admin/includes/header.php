@@ -7,12 +7,11 @@ echo doctype();
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Modern is a Premium Bootstrap Admin Template, It's responsive, clean coded and mobile friendly">
-  <meta name="keywords" content="bootstrap, admin, dashboard, flat admin template, responsive," />
+  
   <title><?php if(isset($title)){ echo $title;}?></title>
 
   <!-- ========== Css Files ========== -->
-  <link href="<?php echo base_url('static/admin/css/root.css')?>" rel="stylesheet">
+  <link href="<?php echo base_url('static/admin/'.APP_V.'/css/root.css')?>" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   </head>
   <body>

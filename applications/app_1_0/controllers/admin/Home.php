@@ -2,10 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
+	
+	function __construct(){
+		parent::__construct();
+		$this->login->check_admin_login();
+	}
 
 	public function index()
 	{
-		$this->login->check_admin_login();
 		
 		$data['title']			=	'Dashboard';
 		$data['heading']		=	'Dashboard';

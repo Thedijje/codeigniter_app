@@ -5,7 +5,8 @@
  
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url('admin')?>"><i class='fa fa-dashboard'></i> Dashboard</a></li>
-		<li><?php if($heading){ echo $heading;}?></li>
+        <li><?php if($this->uri->segment(3)){ echo $this->uri->segment(3);}?></li>
+        <li><?php if($heading){ echo $heading;}?></li>
       </ol>
 </div>
 

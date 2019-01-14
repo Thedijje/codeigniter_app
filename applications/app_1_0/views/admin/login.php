@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from themesground.com/modern/demo1/HTML/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 12 Jan 2016 10:06:09 GMT -->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Login to admin panel to manage components">
   <meta name="keywords" content="Admin,login" />
-  <title>Login</title>
+  <title>Login : <?php echo $this->lib->get_settings('sitename');?></title>
 
   <!-- ========== Css Files ========== -->
-  <link href="<?php echo base_url('static/admin/css/root.css')?>" rel="stylesheet">
+  <link href="<?php echo base_url('static/admin/'.APP_V.'/css/root.css')?>" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <script src="<?php echo base_url('static/admin/js/bootstrap/bootstrap.min.js')?>"></script>
+  <script src="<?php echo base_url('static/admin/'.APP_V.'/js/bootstrap/bootstrap.min.js')?>"></script>
   
   <style type="text/css">
     body{background: #F5F5F5;}
@@ -36,7 +35,7 @@
           </div>
           <div class="group">
             <input type="password" name="password" class="form-control" placeholder="Password" required>
-			<input type="hidden" name="redirect" value="<?php if(isset($_GET['redirect']) AND $_GET['redirect']!=''){ echo $_GET['redirect'];}?>">
+			      <input type="hidden" name="redirect" value="<?php if(isset($_GET['redirect']) AND $_GET['redirect']!=''){ echo $_GET['redirect'];}?>">
             <i class="fa fa-key"></i>
           </div>
          

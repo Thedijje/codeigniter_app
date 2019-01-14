@@ -5,7 +5,8 @@
  
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url('admin')?>"><i class='fa fa-dashboard'></i> Dashboard</a></li>
-		<li><?php if($heading){ echo $heading;}?></li>
+		<?php if($this->router->fetch_class()!='home'){ echo '<li>'.$this->router->fetch_class().'</li>';}?>
+        <?php if($this->router->fetch_method()!='index'){ echo "<li>".$this->router->fetch_method().'</li>';}?>
       </ol>
 </div>
 

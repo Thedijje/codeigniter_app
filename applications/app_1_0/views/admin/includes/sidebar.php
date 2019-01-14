@@ -3,17 +3,13 @@ $admin_info	=	$this->session->userdata('admin');
 /*
 * Badge number count
 */
-$prod_count   	=	$this->lib->count_multiple('products',array('product_status'=>1));
-$cat_count      = $this->lib->count_multiple('category',array('category_status'=>1));
-$recipe_count   = $this->lib->count_multiple('product_recipes',array('recipe_status'=>1));
-$orders         = $this->lib->count_multiple('orders',array('order_status'=>1));
-$users 	        =	$this->lib->count_multiple('users',array('user_status<='=>3));
+
 ?>
 <!-- START SIDEBAR -->
 <div class="sidebar clearfix">
 <div class="dropdown link">
       <a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox">
-     <div class="user-name"><b>How are you <?php echo $admin_info['name'];?> ?</b><span class="caret"></span></div></a>
+     <div class="user-name"><b>How are you <?php echo $admin_info['name'] ?? 'Admin';?> ?</b><span class="caret"></span></div></a>
       
        
        

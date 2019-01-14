@@ -11,7 +11,7 @@ class Log extends CI_Controller {
 	public function index($file=NULL){
 		$data['title']			=	'Error Logs';
 		$data['heading']		=	'Error Logs';
-		$dir    				=	APPPATH.'logs';
+		$dir    				=	$this->config->item('log_path');
 		$data['directory']		=	$dir;
 		$files2 				=	scandir($dir, 1);
 		$data['files'] 			=	$files2;
@@ -26,7 +26,7 @@ class Log extends CI_Controller {
 	}
 
 	public function del($file_name){
-		$dir    = APPPATH.'logs';
+		$dir    = $this->config->item('log_path');
 		$ds 	=	DIRECTORY_SEPARATOR;
 		
 		$file_name 	=	$dir.$ds.base64_decode($file_name);
@@ -42,7 +42,7 @@ class Log extends CI_Controller {
 
 	public function load_file($file_name){
 		if($file_name!=NULL){
-			$dir    	= APPPATH.'logs';
+			$dir    	= $this->config->item('log_path');
 			if(!file_exists($dir.DIRECTORY_SEPARATOR.base64_decode($file_name))){
 				echo "File does not exist or deleted";
 				exit();

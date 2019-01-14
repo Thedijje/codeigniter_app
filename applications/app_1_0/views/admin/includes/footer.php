@@ -4,15 +4,15 @@
   Copyright &copy; <?php echo date('y',time());?> <a href="#" target="_blank"><?php echo $this->lib->get_settings('sitename')?></a> All rights reserved.
   </div>
   <div class="col-md-6 text-right">
-    Design and Developed by <a href="http://google.com/search?q=thedijje" target="_blank">Thedijje</a>
+    Design and Developed by <a href="http://seekgeeks.xyz/" target="_blank">SeekGeeks</a>
   </div> 
 </div>
 <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
-<script type="text/javascript" src="<?php echo base_url('static/admin/js/jquery.min.js')?>"></script>
-<script src="<?php echo base_url('static/admin/js/bootstrap/bootstrap.min.js')?>"></script>
-<script src="<?php echo base_url('static/admin/js/date-range-picker/daterangepicker.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('static/admin/js/plugins.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('static/admin/js/redcurrey_admin.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('static/admin/'.APP_V.'/js/jquery.min.js')?>"></script>
+<script src="<?php echo base_url('static/admin/'.APP_V.'/js/bootstrap/bootstrap.min.js')?>"></script>
+<script src="<?php echo base_url('static/admin/'.APP_V.'/js/date-range-picker/daterangepicker.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('static/admin/'.APP_V.'/js/plugins.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('static/admin/'.APP_V.'/js/redcurrey_admin.js')?>"></script>
 	<script type="text/javascript">
 $(document).ready(function() {
   $('#date-picker').daterangepicker({ singleDatePicker: true }, function(start, end, label) {
