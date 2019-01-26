@@ -26,10 +26,7 @@ class Login_model extends CI_Model {
 			$ins['email'] =$data['email'];
 			$ins['status']=$data['status'];
 			$check		=	$this->lib->get_row_array('admin',array('email'=>$data['email'],'status'=>$data['status']));
-			if(!$check){
-				$this->record_login(0,5,false,1);
-				return FALSE;
-			}
+			
 			$verify_password = password_verify($data['password'],$check->password);
 			if($verify_password){
 				$admin 	=	$check;
@@ -45,11 +42,11 @@ class Login_model extends CI_Model {
 			
 			$this->session->set_userdata('admin',$sess);
 			$this->lib->update('admin',array('last_login'=>time()),'id',$admin->id);
-			$this->record_login($check->id,1,false,1);
+			
 			return TRUE;	
 				
 			}else{
-			$this->record_login($check->id,5,false,1);
+			
 			return FALSE;
 			}
 			
@@ -57,85 +54,7 @@ class Login_model extends CI_Model {
 			
 		}
 
-		public function save_device($data){
-				/*
-				*		Data prototype is
-				*		'ud_user_id'	=>	$user_id,
-				*		'ud_device_type'=>	$data['device_type'],
-				*		'ud_notif_token'=>	$data['device_token'],
-				*		'ud_device_name'=>	$data['device_name'] ?? 'Unknown',
-				*		'ud_device_os'	=>	$data['device_os'] ?? $data['device_type'],
-				*		'ud_status'		=>	1,
-				*		'ud_registered_at'	=>	time()
-				*/
-
-				//		Check if already exists
-				
-
-				$check_current_device 	=	$this->lib->get_row_array('user_devices',array('ud_user_id'=>$data['ud_user_id'],'ud_notif_token'=>$data['ud_notif_token'],'ud_status'=>1));
-				if($check_current_device){
-					// Do nothing if this token already exists
-					log_message('error','This device is already registered for notification## user_id'.$data['ud_user_id'].' # device_type'.$data['ud_device_type']);
-					return true;
-				}
-
-				// Check 1 or more device already exists, delete if so
-				$this->del_oldest_device($data['ud_user_id']);
-
-
-				// Insert new device
-				$this->db->insert('user_devices',$data);
-
-				// Peace
-				return $this->db->insert_id();
-					
-
-		}
-
-		private function count_device($user_id){
-
-			return $this->lib->count_multiple('user_devices',array('ud_user_id'=>$user_id,'ud_status'=>1));
-		}
-
-		private function del_oldest_device($user_id){
-			$count_device		=		$this->count_device($user_id);
-			if($count_device<=1){
-				log_message('error','Device count for user '.$user_id.' is'.$count_device);
-				return true;
-			}
-
-			$this->db->select('*');
-			$this->db->from('user_devices');
-			$this->db->where('ud_user_id',$user_id);
-			$this->db->order_by('ud_registered_at','desc');
-			$query 		=		$this->db->get();
-			if($query){
-				$last_row 		=		$query->last_row();
-				$this->lib->del('user_devices','ud_id',$last_row->ud_id);
-				log_message('error','Device info deleted for device_id '.$last_row->ud_id);
-				
-			}
-			return $this->del_oldest_device($user_id);
-		}
-
-		public function user_devices($user_id,$type=NULL){
-			$this->db->select('*');
-			$this->db->from('user_devices');
-			$this->db->where('ud_user_id',$user_id);
-			if($type!=NULL AND ($type=='ios' OR $type=='android')):
-					$this->db->where('ud_device_type',$type);
-			endif;
-			$this->db->where('ud_notif_token!=','');
-			$this->db->where('ud_status',1);
-			$this->db->order_by('ud_registered_at','desc');
-			$query 		=		$this->db->get();
-			if($query AND $query->num_rows()>0){
-				return $query->result();
-			}else{
-				return false;
-			}
-
-		}
+		
 		
 		public function check_admin_login($ajax=NULL){
 			$adm_data	=	$this->session->userdata('admin');

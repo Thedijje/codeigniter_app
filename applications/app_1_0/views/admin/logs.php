@@ -1,14 +1,4 @@
-<div class="content">
 
-  <!-- Start Page breadcrumb -->
-  <div class="page-header">
- 
-      <ol class="breadcrumb">
-        <li><a href="<?php echo base_url('admin')?>"><i class='fa fa-dashboard'></i> Dashboard</a></li>
-		<?php if($this->router->fetch_class()!='home'){ echo '<li>'.$this->router->fetch_class().'</li>';}?>
-        <?php if($this->router->fetch_method()!='index'){ echo "<li>".$this->router->fetch_method().'</li>';}?>
-      </ol>
-</div>
 
 <div class="container-default">
 	<div class="col-lg-12">

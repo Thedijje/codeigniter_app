@@ -48,14 +48,14 @@ class Login extends CI_Controller {
 			$this->lib->redirect_msg('Invalid request, please try again soon!','danger','admin/login');
 		}
 		
-		$check	=	$this->lib->get_row_array('admin',array('admin_email'=>$email));
+		$check	=	$this->lib->get_row_array('admin',array('email'=>$email));
 		if(!$check){
 			$this->lib->redirect_msg('Email address you have specified, does not exist in record, please try again soon!','danger','admin/login');
 		}else{
 			$rand				=	random_string('alnum',8);
-			$data['admin_password']	=	password_hash($rand,PASSWORD_DEFAULT);
+			$data['password']	=	password_hash($rand,PASSWORD_DEFAULT);
 			
-			$update	=	$this->lib->update('admin',$data,'admin_email',$email);
+			$update	=	$this->lib->update('admin',$data,'email',$email);
 			if(!$update){
 				$this->lib->redirect_msg('Error in resetting password, please try again soon','danger','admin/login');
 			}
