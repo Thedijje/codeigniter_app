@@ -86,7 +86,7 @@
 
 </div>
 <?php 
-$this->js->table_pagination($this->lib->get_settings('max_table_row_display'));	
+$this->js->table_pagination(config_item('max_table_row_display'));	
 ?>
 
 

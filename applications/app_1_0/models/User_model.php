@@ -185,14 +185,14 @@ class User_model extends CI_Model {
 
 			// if(!file_exists($query->row()->user_display_pic)){
 			// 	//	$this->set_default_dp($id);
-			// 	//	$query->row()->user_display_pic	=	$this->lib->get_settings('user_default_avatar');
+			// 	//	$query->row()->user_display_pic	=	config_item('user_default_avatar');
 			// }
 			$user_info	=	$query->row();
 			if(!$user_info){
 				return $user_info;
 			}	
 			if(!file_exists($user_info->user_display_pic)){
-				$user_info->user_display_pic	=	$this->lib->get_settings('user_default_avatar');
+				$user_info->user_display_pic	=	config_item('user_default_avatar');
 			}
 
 			return $user_info;
@@ -497,7 +497,7 @@ class User_model extends CI_Model {
 
 
 	public function set_default_dp($user_id){
-		$this->lib->update('users',array('user_display_pic'=>$this->lib->get_settings('user_default_avatar')),'user_id',$user_id);
+		$this->lib->update('users',array('user_display_pic'=>config_item('user_default_avatar')),'user_id',$user_id);
 		return true;
 	}
 	public function custom_validation_rules($data) {

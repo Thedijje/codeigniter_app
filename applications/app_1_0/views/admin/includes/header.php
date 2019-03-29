@@ -22,7 +22,7 @@ echo doctype();
 
     <!-- Start App Logo -->
     <div class="applogo">
-      <a href="<?php echo base_url('admin')?>" class="logo"><?php echo $this->lib->get_settings('sitename');?></a>
+      <a href="<?php echo base_url('admin')?>" class="logo"><?php echo config_item('sitename');?></a>
     </div>
     <!-- End App Logo -->
     

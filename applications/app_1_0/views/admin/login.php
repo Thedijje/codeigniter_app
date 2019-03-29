@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Login to admin panel to manage components">
   <meta name="keywords" content="Admin,login" />
-  <title>Login : <?php echo $this->lib->get_settings('sitename');?></title>
+  <title>Login : <?php echo config_item('sitename');?></title>
 
   <!-- ========== Css Files ========== -->
   <link href="<?php echo base_url('static/admin/'.APP_V.'/css/root.css')?>" rel="stylesheet">
@@ -23,8 +23,8 @@
     <div class="login-form">
       <form action="<?php echo base_url('admin/login/validate')?>" method="post">
         <div class="top">
-          <img src="<?php echo base_url($this->lib->get_settings('logo'))?>" alt="<?php echo $this->lib->get_settings('sitename')?>" class="icon">
-          <h1><?php echo $this->lib->get_settings('sitename')?></h1>
+          <img src="<?php echo base_url(config_item('logo'))?>" alt="<?php echo config_item('sitename')?>" class="icon">
+          <h1><?php echo config_item('sitename')?></h1>
           <h4>Administrator panel</h4>
         </div>
         <div class="form-area">

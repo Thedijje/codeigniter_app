@@ -1,7 +1,7 @@
 <!-- Start Footer -->
 <div class="row footer">
   <div class="col-md-6 text-left">
-  Copyright &copy; <?php echo date('y',time());?> <a href="#" target="_blank"><?php echo $this->lib->get_settings('sitename')?></a> All rights reserved.
+  Copyright &copy; <?php echo date('y',time());?> <a href="#" target="_blank"><?php echo config_item('sitename')?></a> All rights reserved.
   </div>
   <div class="col-md-6 text-right">
     Design and Developed by <a href="http://seekgeeks.xyz/" target="_blank">SeekGeeks</a>

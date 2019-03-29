@@ -20,7 +20,7 @@ switch($server){
 	*	Local system
 	*/
 		define('DB_GROUP','DB_LOCAL');
-		define('BASE_URL','http://localhost/codeigniter_app/');
+		define('BASE_URL','http://localhost/ci/');
 		define('APP_V','1.0');
 		define('ENV','development');
 		$app_dir = 'applications/app_1_0/';

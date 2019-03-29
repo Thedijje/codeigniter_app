@@ -61,11 +61,11 @@ class Login extends CI_Controller {
 			}
 			// email
 			
-			$mdata['name']	=	$this->lib->get_settings('sitename');
-			$mdata['from']	=	$this->lib->get_settings('email');
+			$mdata['name']	=	config_item('sitename');
+			$mdata['from']	=	config_item('email');
 			$mdata['to']	=	$email;
-			$mdata['message']	=	"Hi ".$check->name."<br>You have requested new password on ".$this->lib->get_settings('sitename').", Your new password is : ".$rand.".<br> Please login and change your password to make it more secure and don't share it with anyone.<br>Regards<br>Admin Team";
-			$mdata['subject']		=	"New password request ".$this->lib->get_settings('sitename');
+			$mdata['message']	=	"Hi ".$check->name."<br>You have requested new password on ".config_item('sitename').", Your new password is : ".$rand.".<br> Please login and change your password to make it more secure and don't share it with anyone.<br>Regards<br>Admin Team";
+			$mdata['subject']		=	"New password request ".config_item('sitename');
 			$email_send	=	$this->lib->send_formatted_mail($mdata);
 			if($email_send){
 				$this->lib->redirect_msg('Password instruction sent you in email, please check email to login','success','admin/login');

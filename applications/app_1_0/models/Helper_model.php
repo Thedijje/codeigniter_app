@@ -226,7 +226,7 @@ class Helper_model extends CI_Model {
 		$this->email->from($data['from'], $data['name']);
 		$this->email->subject($data['subject']);
 		$this->email->message($data['message']);
-		$this->email->reply_to($this->lib->get_settings('verification_mail'),'Mobi-Hub');
+		$this->email->reply_to(config_item('verification_mail'),'Mobi-Hub');
 		
 
 		if($attachment!=NULL){

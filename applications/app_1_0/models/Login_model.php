@@ -192,7 +192,7 @@ class Login_model extends CI_Model {
 		public function refresh_auth($logout=null){
 		user_timezone();
 		$apache_header 	=	apache_request_headers();
-		$token_key 		=	strtoupper($this->lib->get_settings('auth_key'));
+		$token_key 		=	strtoupper(config_item('auth_key'));
 
 		
 		if(!isset($apache_header[$token_key])){
@@ -288,8 +288,8 @@ class Login_model extends CI_Model {
 			return false;
 		}
 
-		$email['name']		=	$this->lib->get_settings('sitename');
-		$email['from']		=	$this->lib->get_settings('sending_email');
+		$email['name']		=	config_item('sitename');
+		$email['from']		=	config_item('sending_email');
 		$email['subject']	=	"Password reset token ".$token;
 		$email['to']		=	$userData->user_email;
 		$email['message']	=	$this->load->view('email/forget_password_otp',array('user_info'=>$userData,'token'=>$token,'reset_token'=>$pass_token),TRUE);

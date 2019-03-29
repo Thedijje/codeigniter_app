@@ -11,10 +11,10 @@ class Settings extends CI_Controller {
 		$data['heading']	=	'Settings';
 		$data['icon']		=	'fa fa-sliders';
 		
-		$data['sitename']						=	$this->lib->get_settings('sitename');
-		$data['email']							=	$this->lib->get_settings('email');
-		$data['logo']							=	$this->lib->get_settings('logo');
-		$data['email_name']		=	$this->lib->get_settings('sending_email_name');
+		$data['sitename']						=	config_item('sitename');
+		$data['email']							=	config_item('email');
+		$data['logo']							=	config_item('logo');
+		$data['email_name']		=	config_item('sending_email_name');
 		
 		
 		$this->load->view('admin/includes/header',$data);
