@@ -4,55 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . 'libraries/REST_Controller.php';
 // require APPPATH . 'libraries/Format.php';
 
-class Response extends REST_Controller {
+class Response extends Api_Controller {
 
     
-	
-	/**
-	 * ### holds the 'login' key from 'login_lang'
-	 */
-	private $_lang;
-	
-	/**
-	 * #### default: Some error occured, please try again later
-	 * @var string
-	 */
-	private $_error;
-
-	/**
-	 * #### default: Request Completed Successfully
-	 * @var string
-	 */
-	private $_message;
-
-	/**
-	 * #### blank array to store response data
-	 * @var mixed
-	 */
-	private $_data;
-
-	/**
-	 * ### set value as 'logout' to logout any user in a case
-	 * @var string
-	 */
-	private $_logout = "";
-
-	/**
-     * To store return response code when error occurs
-	 * ### default: 200
-	 * @var integer
-	 */
-	private $_http_ok = REST_Controller::HTTP_OK;
-
-
-	/**
-     * To store return response code when error occurs
-	 * ### default: 200
-	 * @var integer
-     * 
-	 */
-	private $_http_error = REST_Controller::HTTP_OK;
-
 
 	/**
 	 * Constructor to initialise all values
