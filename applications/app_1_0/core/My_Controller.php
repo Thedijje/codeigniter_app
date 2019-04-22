@@ -6,14 +6,49 @@ class Web_Controller extends CI_Controller {
     
 	function __construct(){
         parent::__construct();
-        
-    }
+		$this->_settings	=	$this->lib->config_list();
+	}
+	
+    protected function _render($view,   $data= array(),$render=FALSE){
 
-	public function index()
-	{
-		$this->load->view('welcome_message');
-    }
-    
+		$data['config'] 	=   $this->_settings;
+        
+
+        if($render){
+            return $this->load->view($view,$data);
+		}
+		
+		
+        $this->load->view('front/includes/header',$data);
+		$this->load->view($view,$data);
+		$this->load->view('front/includes/footer',$data);
+	}
+	
+    protected function _render_admin($view,   $data= array(),$render=FALSE){
+
+		$data['config'] 	=   $this->_settings;
+        
+        if($render){
+            return $this->load->view($view,$data);
+		}
+		
+        $this->load->view('front/includes/header',$data);
+		$this->load->view($view,$data);
+		$this->load->view('front/includes/footer',$data);
+	}
+	
+	protected function _public_render($view,	$data=array(), $render=FALSE){
+	
+        if($render){
+            return $this->load->view($view,$data);
+		}
+		
+        $data['title']  =   'Home';
+        $this->load->view('front/includes/public_header', $data);
+		$this->load->view($view, $data);
+		$this->load->view('front/includes/public_footer', $data);
+	}
+
 }
 
 class Api_Controller extends REST_Controller {
