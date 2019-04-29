@@ -31,10 +31,7 @@ class Contact extends Web_Controller {
 				$data['subject']	=	"Request to update VAT";		
 			}
 		}
-
-		$this->load->view('front/includes/public_header',$data);
-		$this->load->view('front/contact_us',$data);
-		$this->load->view('front/includes/public_footer',$data);
+		$this->_render('front/contact_us');
 	}
 
 	public function save(){

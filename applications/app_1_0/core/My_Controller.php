@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require FCPATH . 'vendor/autoload.php';
+
 
 class Web_Controller extends CI_Controller {
 
@@ -9,11 +11,13 @@ class Web_Controller extends CI_Controller {
 		$this->_settings	=	$this->lib->config_list();
 	}
 	
-    protected function _render($view,   $data= array(),$render=FALSE){
-
+	/**
+	 * Function to render for the from website
+	 */
+    protected function _render($view,   $data = array(),	$render=FALSE){
+		
 		$data['config'] 	=   $this->_settings;
         
-
         if($render){
             return $this->load->view($view,$data);
 		}
@@ -24,7 +28,10 @@ class Web_Controller extends CI_Controller {
 		$this->load->view('front/includes/footer',$data);
 	}
 	
-    protected function _render_admin($view,   $data= array(),$render=FALSE){
+	/**
+	 * Function to render admin panel if any
+	 */
+    protected function _render_admin($view,   $data = array(),	$render=FALSE){
 
 		$data['config'] 	=   $this->_settings;
         
@@ -32,28 +39,31 @@ class Web_Controller extends CI_Controller {
             return $this->load->view($view,$data);
 		}
 		
-        $this->load->view('front/includes/header',$data);
+        $this->load->view('admin/includes/header',$data);
 		$this->load->view($view,$data);
-		$this->load->view('front/includes/footer',$data);
+		$this->load->view('admin/includes/footer',$data);
 	}
 	
-	protected function _public_render($view,	$data=array(), $render=FALSE){
-	
+	/**
+	 * Function to render user panel if any
+	 */
+    protected function _render_user($view,   $data = array(),	$render=FALSE){
+
+		$data['config'] 	=   $this->_settings;
+        
         if($render){
             return $this->load->view($view,$data);
 		}
 		
-        $data['title']  =   'Home';
-        $this->load->view('front/includes/public_header', $data);
-		$this->load->view($view, $data);
-		$this->load->view('front/includes/public_footer', $data);
+        $this->load->view('user/includes/header',$data);
+		$this->load->view($view,$data);
+		$this->load->view('user/includes/footer',$data);
 	}
 
 }
 
 class Api_Controller extends REST_Controller {
 
-    
 	
 	/**
 	 * ### holds the 'login' key from 'login_lang'

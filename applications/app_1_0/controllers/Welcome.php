@@ -20,23 +20,8 @@ class Welcome extends Web_Controller {
 	 */
 
 	
-	public function index()
-	{
-		// var_dump($this->config->item());
-		// foreach ($variable as $key => $value) {
-		// 	# code...
-		// }
-		// exit();
-		// $this->output->enable_profiler(true);
+	public function index(){
 		$this->load->view('welcome_message');
-
 	}
 
-	public function config($key)
-	{
-		if(!$key || $key==''){
-			return false;
-		}
-		return $this->config->item($key);
-	}
 }

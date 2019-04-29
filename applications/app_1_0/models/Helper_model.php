@@ -1,8 +1,12 @@
 <?php
 class Helper_model extends CI_Model {
 
+    function __construct(){
+		parent::__construct();
+		$this->load->model('Db_table_model', 'db_table');
+    }
+    
 	function cli_only(){
-
 		$is_cli     =    $this->input->is_cli_request();
         if(!$is_cli){
             $msg =    "Somebody from IP ".$_SERVER['REMOTE_ADDR']." Tried to open http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -13,11 +17,26 @@ class Helper_model extends CI_Model {
 
 	}
 	
+	public function config_list(){
+		/*
+		Fetching data from config table of database	
+		*/
+		$this->db_table->check('config');
+		$query			=	$this->db->get('config');
+
+		$result				=	$query->result();
+		foreach($result as $row){
+			$config_array[$row->name]	=	$row->value;
+		}
+		return $config_array;
+	}
+
+
 	public function get_settings($name,$output=NULL){
-	/*
-	Fetching data from config table of database	
-	*/
-		$query			=	$this->db->get_where('config', array('name' => $name),1);
+		/*
+		Fetching data from config table of database	
+		*/
+		$query			=	$this->db->get_where('config', array('name' => $name), 1);
 		$res				=	$query->result();
 		foreach($res as $details){
 			if($output==1){
@@ -25,7 +44,7 @@ class Helper_model extends CI_Model {
 			}else{
 				return $details->value;
 			}
-			}
+		}
 	}
 	
 	public function login_check(){
@@ -35,7 +54,7 @@ class Helper_model extends CI_Model {
 		$email			=	$this->session->userdata('email');
 		$admin_id		=	$this->session->userdata('admin_id');
 		$logged_in		=	$this->session->userdata('logged_in');
-		if(($email!="") && ($admin_id!="") && ($logged_in!="")){
+		if( ($email!="") && ($admin_id!="") && ($logged_in!="") ){
 				// We programmer rocks :DESC
 				// lets stay silent
 				// No action here, enjoy pizza :D

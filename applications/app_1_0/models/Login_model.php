@@ -7,8 +7,7 @@ class Login_model extends CI_Model {
 			
 			foreach($fields as $key=>$value):
 			if(!empty($data[$value])){
-			$members['member_'.$value]=$data[$value];
-				
+				$members['member_'.$value]=$data[$value];
 			}else{
 				$this->lib->redirect_msg(ucfirst($value).' should not be empty','warning','signup');
 			}

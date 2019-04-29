@@ -56,10 +56,12 @@ class Login extends Web_Controller {
 			redirect(base_url('home'));
 			exit();
 		}
+		
 		$data	=	$this->input->post();
 		if(!$data){
 			$this->lib->redirect_msg($error_lang['invalid_request'],'danger','login');
 		}
+
 		$data		= $this->security->xss_clean($data);
 		$username	=	$data['username'];
 		$check_user =	$this->lib->get_row_array('users',array('username'=>$username,'user_status<='=>3));
