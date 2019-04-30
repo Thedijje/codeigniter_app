@@ -1,22 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * Contact Us Model
+ */
 class Contact_model extends CI_Model {
-	public function contact_info($contact_id=NULL,$user_id=NULL){
+
+	public function list($contact_id=NULL,$user_id=NULL){
 		$this->db->select('*');
-		$this->db->from('contact_msg msg');
+		$this->db->from('contact msg');
 		$this->db->join('users		user',	'user.user_id	=	msg.contact_user_id',	'left');
 		$this->db->join('admin		admin',	'admin.id	=	msg.contact_replied_by',	'left');
 
 		if($contact_id!=NULL):
-			$this->db->where('msg.contact_msg_id',$contact_id);
+			$this->db->where('msg.contact_id',$contact_id);
 		endif;
 		
 		if($user_id!=NULL):
 			$this->db->where('msg.contact_user_id',$user_id);
 		endif;
 		
-		$this->db->order_by('msg.contact_msg_id','desc');
+		$this->db->order_by('msg.contact_id','desc');
 		$query				=	$this->db->get();
 		
 		if(!$query){
@@ -34,4 +37,5 @@ class Contact_model extends CI_Model {
 		}
 		return $query->result();
 	}
+
 }

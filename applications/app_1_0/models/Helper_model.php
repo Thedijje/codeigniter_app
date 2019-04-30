@@ -3,7 +3,6 @@ class Helper_model extends CI_Model {
 
     function __construct(){
 		parent::__construct();
-		$this->load->model('Db_table_model', 'db_table');
     }
     
 	function cli_only(){
@@ -17,11 +16,14 @@ class Helper_model extends CI_Model {
 
 	}
 	
+	/**
+	 * Fetch date from config table and create one if it doesn't exists
+	 * @return array of config settings for
+	 */
 	public function config_list(){
 		/*
 		Fetching data from config table of database	
 		*/
-		$this->db_table->check('config');
 		$query			=	$this->db->get('config');
 
 		$result				=	$query->result();
@@ -32,21 +34,6 @@ class Helper_model extends CI_Model {
 	}
 
 
-	public function get_settings($name,$output=NULL){
-		/*
-		Fetching data from config table of database	
-		*/
-		$query			=	$this->db->get_where('config', array('name' => $name), 1);
-		$res				=	$query->result();
-		foreach($res as $details){
-			if($output==1){
-				echo $details->value;
-			}else{
-				return $details->value;
-			}
-		}
-	}
-	
 	public function login_check(){
 	/*
 	Prevent pages from getting access if protected by login

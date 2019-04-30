@@ -85,3 +85,5 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 defined('ADMIN')             OR  define('ADMIN','admin');   //  Dynamic Admin path
+
+defined('PROJECT_DEFAULT_URL')             OR  define('PROJECT_DEFAULT_URL','https://github.com/seekgeeks/codeigniter_app');   //  Dynamic Admin path

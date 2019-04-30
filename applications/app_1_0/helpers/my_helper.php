@@ -764,9 +764,7 @@ function this_url($url=''){
 function default_user_dp($name='M H',$rounded='true',$size=128,$color='')
 {
 	if($color==''):
-
 		$color =	"007fbd";
-	
 	endif;
 	return "https://ui-avatars.com/api/?name=".urlencode($name)."&size=".$size."&rounded=".$rounded."&color=".$color;
 }
