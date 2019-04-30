@@ -38,7 +38,7 @@ class Install_model extends CI_Model {
         $templine = '';
         // Read in entire file
         $lines = file($file_name);
-        dd($lines, true);
+        // dd($lines, true);
         foreach($lines as $line) {
             // Skip it if it's a comment
             if (substr($line, 0, 2) == '--' || $line == '')
