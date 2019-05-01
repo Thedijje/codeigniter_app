@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Logout extends CI_Controller {
+class Logout extends Web_Controller {
 
 	public function index()
 	{

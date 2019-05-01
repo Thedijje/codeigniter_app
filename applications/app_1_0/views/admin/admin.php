@@ -48,9 +48,9 @@
 				</thead>
 				<tbody>
 					<?php 
-					if($admin){
+					if($admins){
 					$i=1;
-						foreach($admin as $sd){
+						foreach($admins as $sd){
 						?>
 						<tr>
 							<td><?php echo $i;?></td>

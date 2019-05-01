@@ -15,6 +15,6 @@ class Home extends Web_Controller {
 		$data['heading']		=	'Dashboard';
 		$data['icon']			=	'fa fa-dashboard';
 		
-		$this->_render_admin('admin/dashboard', $data);
+		$this->_render_admin('admin/users');
 	}
 }

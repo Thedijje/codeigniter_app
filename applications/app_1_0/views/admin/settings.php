@@ -26,12 +26,12 @@
 				<label class="col-lg-2">Date Format</label>
 				<div class="col-lg-5">
 					<select class="form-control" name="date-format" id="date">
-						<option value="M/d/Y" <?php if(config_item('date_format')=='M/d/Y'){ echo "selected";}?>><?php echo date('M/d/Y')?></option>
-						<option value="M d Y" <?php if(config_item('date_format')=='M d Y'){ echo "selected";}?>><?php echo date('M d Y')?></option>
-						<option value="m/d/Y" <?php if(config_item('date_format')=='m/d/Y'){ echo "selected";}?>><?php echo date('m/d/y')?></option>
-						<option value="d M Y" <?php if(config_item('date_format')=='d M Y'){ echo "selected";}?>><?php echo date('d M Y')?></option>
-						<option value="D d-M-Y" <?php if(config_item('date_format')=='D d-M-Y'){ echo "selected";}?>><?php echo date('D-d-M-Y')?></option>
-						<option value="D d-m-y" <?php if(config_item('date_format')=='D d-m-y'){ echo "selected";}?>><?php echo date('D d-m-y')?></option>
+						<option value="M/d/Y" <?php if($config['date_format']=='M/d/Y'){ echo "selected";}?>><?php echo date('M/d/Y')?></option>
+						<option value="M d Y" <?php if($config['date_format']=='M d Y'){ echo "selected";}?>><?php echo date('M d Y')?></option>
+						<option value="m/d/Y" <?php if($config['date_format']=='m/d/Y'){ echo "selected";}?>><?php echo date('m/d/y')?></option>
+						<option value="d M Y" <?php if($config['date_format']=='d M Y'){ echo "selected";}?>><?php echo date('d M Y')?></option>
+						<option value="D d-M-Y" <?php if($config['date_format']=='D d-M-Y'){ echo "selected";}?>><?php echo date('D-d-M-Y')?></option>
+						<option value="D d-m-y" <?php if($config['date_format']=='D d-m-y'){ echo "selected";}?>><?php echo date('D d-m-y')?></option>
 						
 					</select>
 				</div>

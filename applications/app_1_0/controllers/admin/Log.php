@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Log extends CI_Controller {
+class Log extends Web_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->login->check_admin_login();
@@ -20,9 +20,11 @@ class Log extends CI_Controller {
 			$data['file_name'] 	=	base64_decode($file);
 
 		}
-		$this->load->view('admin/includes/header',$data);
-		$this->load->view('admin/logs',$data);
-		$this->load->view('admin/includes/footer',$data);
+		$this->_render_admin('admin/logs', $data);
+
+		// $this->load->view('admin/includes/header',$data);
+		// $this->load->view('',$data);
+		// $this->load->view('admin/includes/footer',$data);
 	}
 
 	public function del($file_name){
@@ -36,7 +38,6 @@ class Log extends CI_Controller {
 		}
 
 		$this->lib->redirect_msg('File deleted successfully!','success','admin/log');
-		
 
 	}
 
@@ -68,7 +69,7 @@ class Log extends CI_Controller {
 				?>
 				</small>
 			</div>
-		</div>
+		
 			<script type="text/javascript">
 				divx = document.getElementById("file_content_well");
 	        	divx.scrollTop      =    divx.scrollHeight;

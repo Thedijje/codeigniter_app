@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Accounts extends CI_Controller {
+class Accounts extends Web_Controller {
 	
 	 function __construct(){
         parent::__construct(); // needed when adding a constructor to a controller

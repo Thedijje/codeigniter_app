@@ -3,20 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login_model extends CI_Model {
 	
-		public function validate($data,$fields){
+		// public function validate($data,$fields){
 			
-			foreach($fields as $key=>$value):
-			if(!empty($data[$value])){
-				$members['member_'.$value]=$data[$value];
-			}else{
-				$this->lib->redirect_msg(ucfirst($value).' should not be empty','warning','signup');
-			}
+		// 	foreach($fields as $key=>$value):
+		// 	if(!empty($data[$value])){
+		// 		$members['member_'.$value]=$data[$value];
+		// 	}else{
+		// 		$this->lib->redirect_msg(ucfirst($value).' should not be empty','warning','signup');
+		// 	}
 			
-			endforeach;
-			return $members;
-		}
+		// 	endforeach;
+		// 	return $members;
+		// }
 		
-		public function login_validate($data){
+		public function validate($data){
 			if($data['email']=='' OR $data['password']==''){
 			return false;	
 			}

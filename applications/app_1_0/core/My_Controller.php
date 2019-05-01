@@ -26,6 +26,7 @@ class Web_Controller extends CI_Controller {
         $this->load->view('front/includes/header',$data);
 		$this->load->view($view,$data);
 		$this->load->view('front/includes/footer',$data);
+
 	}
 	
 	/**
@@ -42,6 +43,7 @@ class Web_Controller extends CI_Controller {
         $this->load->view('admin/includes/header',$data);
 		$this->load->view($view,$data);
 		$this->load->view('admin/includes/footer',$data);
+
 	}
 	
 	/**

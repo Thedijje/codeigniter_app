@@ -1,10 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Login extends Web_Controller {
+
+	function __construct(){
+		parent::__construct();
+		$this->load->model('login_model','login');
+		
+	}
+
 	public function index()
 	{
-		$this->load->view('admin/login');
+		$this->_render_admin('admin/login');
+		// $data['config']		=	$this->_settings;
+		// // dd($data);
+		// $this->load->view(, $data);
 	}
 	
 	
@@ -14,20 +24,19 @@ class Login extends CI_Controller {
 		if($data['email']=='' OR $data['password']==''){
 			$this->lib->redirect_msg('Email/password can not be blank!','danger','admin/login');
 		}
-		$this->load->model('login_model');
 		
 		$data['password']		=	$data['password'];
 		$data['email']			=	$data['email'];
 		$redirect				=	$data['redirect'];
 		unset($data['redirect']);
-		$login	=	$this->login_model->login_validate($data);
+
+		$login	=	$this->login->validate($data);
 		
 		if(!$login){
 			$this->lib->redirect_msg('Invalid email/password combination!','danger','admin/login');
 		}else{
 			if(isset($redirect) && $redirect!=''){
 				redirect(base_url($redirect));
-				
 			}else{
 				redirect(base_url('admin/'));
 			}
@@ -38,7 +47,7 @@ class Login extends CI_Controller {
 	}
 	
 	public function forget_password(){
-		$this->load->view('admin/ajax/pass_reset');
+		$this->_render_admin('admin/ajax/pass_reset');
 	}
 	
 	public function reset_password(){
@@ -59,21 +68,21 @@ class Login extends CI_Controller {
 			if(!$update){
 				$this->lib->redirect_msg('Error in resetting password, please try again soon','danger','admin/login');
 			}
-			// email
 			
-			$mdata['name']	=	config_item('sitename');
-			$mdata['from']	=	config_item('email');
-			$mdata['to']	=	$email;
+			// email
+			$mdata['name']		=	config_item('sitename');
+			$mdata['from']		=	config_item('email');
+			$mdata['to']		=	$email;
 			$mdata['message']	=	"Hi ".$check->name."<br>You have requested new password on ".config_item('sitename').", Your new password is : ".$rand.".<br> Please login and change your password to make it more secure and don't share it with anyone.<br>Regards<br>Admin Team";
 			$mdata['subject']		=	"New password request ".config_item('sitename');
 			$email_send	=	$this->lib->send_formatted_mail($mdata);
+
 			if($email_send){
 				$this->lib->redirect_msg('Password instruction sent you in email, please check email to login','success','admin/login');
 			}else{
 				$this->lib->redirect_msg('Could not sent you email, please try resetting it again','danger','admin/login');
 			}
-			
-			
+
 		}
 	}
 }
