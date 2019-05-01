@@ -224,49 +224,13 @@ class Admins extends Web_Controller {
 		}
 		$admin_id 				=	$this->db->insert_id();
 
-		//create user return user_id
-		$user_id 				= 	$this->manager->create_admin_user($admin_id);
-		if(!$user_id ){
+		if($admin_id ){
 			//del previous created admin
 			//$del_admin		=	$this->lib->del('admin','id',$admin_id);
-			unset($_SESSION['admin']['is_user_linked']);
-			$this->lib->redirect_msg('Admin added successfully, however Unable to add front user for this admin, Create front-end user and try again','warning','admin/admins/list');
-		}
-
-		//link user to the admin table
-		$link_user 	=	$this->manager->link_admin_user($admin_id,$user_id);
-		if(!$link_user ){
-			//del previou created admin and user
-			$del_admin		=	$this->lib->del('admin','id',$admin_id);
-			$del_user 		=	$this->lib->del('users','user_id',$admin_info->front_user);
-			unset($_SESSION['admin']['is_user_created']);
-			$this->lib->redirect_msg('Unable to link front user to admin, please try again soon','danger','admin/admins/list');
-		}
-		
-		$is_user_link 		=	admin_user('is_user_link');
-		if($is_user_link){
-			$this->manager->mail_admin_user_linked($user_id);
-		}
-
-		$is_user_created	=	admin_user('is_user_created');
-		if($is_user_created){
-			$this->manager->mail_admin_user_created($user_id);
-		}
-
-		//get username to share with admin
-		$username 	=	$this->lib->get_row('users','user_id',$user_id,'username');
-		if(!$username){
-			$this->lib->redirect_msg('Error featching username','danger','admin/admins/list');
-		}
-
-		unset($_SESSION['admin']['is_user_linked']);
-		unset($_SESSION['admin']['is_user_created']);
-
-		/*
-            Record Activity
-        */
-    	$this->activity->save_activity(17,$admin_id,'add','Admin added');
-		$this->lib->redirect_msg('Admin added successfully with username '.$username,'success','admin/admins/list');
+			$this->lib->redirect_msg('Admin added successfully','success','admin/admins/list');
+		}else{
+			$this->lib->redirect_msg('Admin could not be added successfully','danger','admin/admins/list');
+        }
 
 	}
 
