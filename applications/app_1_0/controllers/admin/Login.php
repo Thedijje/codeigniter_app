@@ -11,7 +11,7 @@ class Login extends Web_Controller {
 
 	public function index()
 	{
-		$this->_render_admin('admin/login');
+		$this->_render_admin('admin/login',NULL, true);
 		// $data['config']		=	$this->_settings;
 		// // dd($data);
 		// $this->load->view(, $data);

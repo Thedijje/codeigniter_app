@@ -4,7 +4,7 @@
   Copyright &copy; <?php echo date('y',time());?> <a href="#" target="_blank"><?php echo $config['sitename']?></a> All rights reserved.
   </div>
   <div class="col-md-6 text-right">
-    Design and Developed by <a href="http://seekgeeks.xyz/" target="_blank">SeekGeeks</a>
+    Design and Developed by <a href="<?php echo PROJECT_DEFAULT_URL ?>" target="_blank">SeekGeeks</a>
   </div> 
 </div>
 <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
