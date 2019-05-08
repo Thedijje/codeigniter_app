@@ -27,6 +27,7 @@ class Settings extends Web_Controller {
 		if($update){
 			echo "<span class='text-success'><i class='fa fa-check-circle'></i> ".$module." Saved!</span>";
 		}
+		exit();
 	}
-	
+
 }

@@ -36,6 +36,14 @@ class Install extends Web_Controller {
             echo "\n\t-\t`admin` table already added or not available.<br /><br />";
         }
 
+        //  install admin_roles table
+        $admin_roles     =   $this->install->check('admin_roles');
+        if($admin_roles){
+            echo "\n\t-\t`admin_roles` table added.<br /><br />";
+        }else{
+            echo "\n\t-\t`admin_roles` table already added or not available.<br /><br />";
+        }
+
 
         //  install status table
         $status     =   $this->install->check('status');

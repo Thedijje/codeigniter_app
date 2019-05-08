@@ -52,6 +52,31 @@
 			
 			<br>
 			
+			<div class="form-group">
+				<label class="col-lg-2">Color Scheme</label>
+				<?php
+					$d	=	DIRECTORY_SEPARATOR;
+					$files 		=	scandir(FCPATH.'static'.$d.'admin'.$d.APP_V.$d.'css'.$d.'colors');
+					$excluded_css_files	=	array('.','..');
+				?>
+				<div class="col-lg-5">
+					<select class="form-control" name="color_scheme" id="color_scheme">
+						<?php
+							foreach ($files as $file ) {
+								if(in_array($file,$excluded_css_files)){continue;}
+								$file 	=	substr($file,0,strpos($file,'.'));
+								?>
+								<option value="<?=$file?>" <?php if($config['color_scheme']==$file){ echo "selected";}?>><?php echo ucfirst($file);?></option>
+								<?php
+							}
+						?>
+					</select>	
+				</div>
+				<div class="col-lg-2"><span id="save_color_scheme" class="btn btn-primary"><i class="fa fa-save"></i> Save</span></div>
+				<div class="col-lg-3" id="msg_color_scheme"></div>
+			</div>
+			<div class="clearfix"></div>
+			
 			<?php /*
 			<div class="form-group">
 				<label class="col-lg-2">Logo</label>
@@ -137,6 +162,24 @@
 				data:data,
 				success:function(html) {
 				$("#msg_email_name").html(html);
+				}
+			});
+			return false;
+		});
+
+		$('#save_color_scheme').click(function () {
+			$("#msg_color_scheme").html("<i class='fa fa-spinner fa-pulse fa-fw'></i>Please wait...");
+			var color_scheme = $('#color_scheme').val();
+		
+			var data='value='+color_scheme;
+			$.ajax({
+				dataType:"html",
+				type:"POST",
+				url:"<?php echo base_url('admin/settings/save_settings/color_scheme')?>",
+				data:data,
+				success:function(html) {
+					$("#msg_color_scheme").html(html);
+					document.location.reload();
 				}
 			});
 			return false;

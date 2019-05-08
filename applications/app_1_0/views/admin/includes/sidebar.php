@@ -21,11 +21,15 @@ $admin_info	=	$this->session->userdata('admin');
 
   
   <li class="sidetitle">Admin Menu</li>
+  <li><a href="<?php echo base_url('admin/admins')?>"><span class="icon color6"><i class="fa fa-sliders"></i></span>Admins</a></li>
   <li><a href="<?php echo base_url('admin/settings')?>"><span class="icon color6"><i class="fa fa-sliders"></i></span>Settings</a></li>
   <li><a href="<?php echo base_url('admin/log')?>"><span class="icon color6"><i class="fa fa-warning"></i></span>System Log</a></li>
-
   <li><a href="<?php echo base_url('admin/logout')?>"><span class="icon color6"><i class="fa fa-power-off"></i></span>Logout</a></li>
+
   
+  <li class="sidetitle">API</li>
+  <li><a href="<?php echo base_url('admin/api')?>"><span class="icon color6"><i class="fa fa-sliders"></i></span>API</a></li>
+  <li><a href="<?php echo base_url('admin/log')?>"><span class="icon color6"><i class="fa fa-warning"></i></span>API Logs</a></li>
 </ul>
 
 

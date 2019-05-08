@@ -70,6 +70,7 @@ INSERT INTO `config` (`id`, `type`, `name`, `value`) VALUES
 (34, 'site', 'post_reminder_days', '1'),
 (35, 'site', 'url_apple_store', ''),
 (36, 'site', 'url_google_play', '');
+(37, 'site', 'color_scheme', 'default');
 
 --
 -- Indexes for dumped tables

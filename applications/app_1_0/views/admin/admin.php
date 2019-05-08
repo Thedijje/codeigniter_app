@@ -4,37 +4,50 @@
 	<div class="col-lg-12">
 	<?php $this->lib->alert_message();?>
 	<div class="clearfix"></div>
-		<div class="panel panel-default col-lg-4">
+	<div class="panel panel-default col-lg-4">
 		<h3>Add New Admin</h3>
-			<form class="form" action="<?php echo base_url('admin/users/add')?>" method="post">
-				<div class="form-group">
-					<label>Name</label>
-					<input type="text" class="form-control" name="name" required placeholder="Enter speciality name" autofocus>
-				</div>
-				
-				<div class="form-group">
-					<label>Email</label>
-					<input type="email" class="form-control" name="email" required placeholder="Enter admin email" autofocus>
-				</div>
-				
-				<div class="form-group">
-					<label>Password</label>
-					<input type="text" class="form-control" name="password" required placeholder="Enter password" autofocus>
-				</div>
-				
+		<form class="form" action="<?php echo base_url('admin/admins/save')?>" method="post">
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" class="form-control" name="name" required placeholder="Enter Name" value="<?=set_value('name');?>" autofocus>
+			</div>
 			
-				
-				<div class="form-group">
-					<button class="btn btn-primary btn-icon"><i class="fa fa-save"></i> Save Admin</button>
-				</div>
-				
-				
-			</form>
-		
-		</div>
-		
+			<div class="form-group">
+				<label>Email</label>
+				<input type="email" class="form-control" name="email" required placeholder="Enter Admin Email" value="<?=set_value('email');?>" autofocus>
+			</div>
+			
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" name="password" required placeholder="Enter Password" autofocus>
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" name="confirm_password" required placeholder="Enter Confirm Password" autofocus>
+			</div>
+			
+			<div class="form-group">
+				<label>Role</label>
+				<select name="role" id="role" class="form-control">
+					<option disabled selected="">Select</option>
+					<?php foreach($roles as $role){
+						?>
+						<option value="<?=base64_encode($role->id)?>"><?=$role->role_name?></option>
+						<?php
+					}?>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<button class="btn btn-primary btn-icon"><i class="fa fa-save"></i> Save Admin</button>
+			</div>
+			
+		</form>
+	
+	</div>
+	
 		<div class="panel panel-default col-lg-8" >
-			<h4>List of available speciality</h4>
+			<h4>List of available Admins</h4>
 			<hr>
 			<table class="table table-hover table-responsive">
 				<thead>
@@ -58,9 +71,9 @@
 							<td><?php echo $sd->email;?></td>
 							<td><?php if($sd->last_login){ echo timespan($sd->last_login,time(),2);?> ago <?php }else{ echo "Not yet";}?></td>
 							<td>
-								<button class="btn btn-icon btn-sm btn-info" onclick="$('#loadData').load('<?php echo base_url('admin/users/edit/'.$sd->id)?>');" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i></button>
+								<button class="btn btn-icon btn-sm btn-info" onclick="$('#loadData').load('<?php echo base_url('admin/admins/edit/'.$sd->id)?>');" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i></button>
 							
-								<a onclick="return confirm('Are you sure want to trash this record?')" href="<?php echo base_url('admin/users/del/'.$sd->id)?>"><button class="btn btn-icon btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
+								<a onclick="return confirm('Are you sure want to trash this record?')" href="<?php echo base_url('admin/admins/del/'.$sd->id)?>"><button class="btn btn-icon btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
 							</td>
 						</tr>
 						<?php
@@ -83,6 +96,4 @@
 	
 	</div>
 	<div class="clearfix"></div>
-</div>
-
 </div>

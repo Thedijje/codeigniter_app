@@ -12,6 +12,10 @@ echo doctype();
 
 		<!-- ========== Css Files ========== -->
 		<link href="<?php echo base_url('static/admin/'.APP_V.'/css/root.css')?>" rel="stylesheet">
+		<?php
+			$color_scheme 	=	$this->_settings['color_scheme'] ?? "default";
+		?>
+		<link href="<?php echo base_url('static/admin/'.APP_V.'/css/colors/'.$color_scheme.'.css')?>" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	</head>
 	<body>

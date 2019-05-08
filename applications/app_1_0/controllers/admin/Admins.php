@@ -13,90 +13,57 @@ class Admins extends Web_Controller {
 		$data['title']			=	'Admins List';
 		$data['heading']		=	'Admins List';
 		$admin_id				=	admin_user('id');
-		
-		$status 				=	$this->input->get('status') ?? base64_encode(1);
-		$data['selected']		=	base64_decode($status);
-		$status 				=	base64_decode(urldecode($status));
 
-		$data['admins']			=	$this->admin->list(null,$status);
+		$data['roles'] 	=	$this->lib->get_table('admin_roles');
+		$data['admins']			=	$this->admin->list();
         
         $this->_render_admin('admin/admin',$data);
-		// $this->load->view('admin/includes/header',$data);
-		// $this->load->view('admin/admin_list',$data);
-		// $this->load->view('admin/includes/footer',$data);
 	}
 
-	public function log($date=NULL){
-		$data['title']			=	'Admins Activity log';
-		$data['heading']		=	'Admins Activity Log';
-		$admin_id				=	admin_user('id');
-		$data['activities']		=	$this->activity->activity_info(NULL,NULL,20);
-		$data['entities']		=	$this->lib->get_table('activity_entity',array('ae_name'=>'asc'));
-		$data['admins']			=	$this->lib->get_table('admin',array('name'=>'asc'));
-		// $data['admins']			=	$this->manager->all_admin();
-		$this->load->view('admin/includes/header',$data);
-		$this->load->view('admin/admin_log_list',$data);
-		$this->load->view('admin/includes/footer',$data);
-	}
-
-	public function filter_activity_log(){
-		$data 				=	$this->input->get();
-		$filter = array(
-			'aa_admin_id' => base64_decode($data['aa_admin_id']),
-			'aa_entity' => base64_decode($data['aa_entity']),
-			'aa_action' => $data['aa_action'],
-			'aa_time>='	=> strtotime($data['start_time']),
-			'aa_time<='	=> strtotime($data['end_time'])
-		);
-		if($this->input->get('last_activity_id')){
-			$filter['aa_id>'] = base64_decode($data['last_activity_id']);
+	public function save(){
+		$data = $this->input->post();
+		if($data['new_password']!=$data['confirm_password']){
+			$this->lib->redirect_msg('Confirm Password did not match' ,'danger','admin/admins');
 		}
-		$data['activities']	 	=	$this->activity->activity_info(NULL,$filter);
-		
-		$data['offset']			= 	0;
-		$this->load->view('admin/ajax/load_more_admin_activities',$data);
-	}
-
-	public function load_more_activities(){
-		$data 	=	$this->input->get();
-		$filter = array(
-			'aa_admin_id' => base64_decode($data['aa_admin_id']),
-			'aa_entity' => base64_decode($data['aa_entity']),
-			'aa_action' => $data['aa_action'],
-			'aa_time>='	=> strtotime($data['start_time']),
-			'aa_time<='	=> strtotime($data['end_time'])
-		);
-		$offset 	=	$data['count'];
-		$data['activities']			=	$this->activity->activity_info(NULL,$filter,array(20,$offset));
-		if(!$data['activities']){
-			echo '';
-			exit();
+		//check email unique
+		$check_email = $this->lib->get_row_array('admin',array('email'=>$data['email']));
+		if($check_email){
+			$this->lib->redirect_msg('Email Already an existing admin.','danger','admin/admins');
 		}
-		$data['offset']			= 	$offset;
-		$this->load->view('admin/ajax/load_more_admin_activities',$data);
-	}
 
-
-	public function load_admin_activity(){
-		$data 	=	$this->input->get();
-		$data['activity']			=	$this->activity->activity_info(base64_decode($data['id']));
-		if(!$data['activity']){
-			echo '';
-			exit();
+		//check email mobile
+		$check_mobile = $this->lib->get_row_array('admin',array('admin_mobile'=>$data['mobile']));
+		if($check_mobile){
+			$this->lib->redirect_msg('Mobile number already exist.','danger','admin/admins');
 		}
-		$this->load->view('admin/ajax/load_admin_activity',$data);
+
+		$new_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
+
+		$ins = array();
+		$ins['name']			=	$data['name'];
+		$ins['email']			=	$data['email'];
+		$ins['admin_mobile']	=	$data['mobile'];
+		$ins['password'] 		= 	$new_password;
+		$ins['role']			=	base64_decode( $data['role']);
+		$ins['added_on'] 		=	time();
+		$ins['status']	 		=	1;
+		$insert_admin 			=	$this->db->insert('admin',$ins);
+		if(!$insert_admin ){
+			$this->lib->redirect_msg('Unable to add admin, please try again soon','danger','admin/admins');
+		}
+		$admin_id 				=	$this->db->insert_id();
+
+		if($admin_id ){
+			//del previous created admin
+			//$del_admin		=	$this->lib->del('admin','id',$admin_id);
+			$this->lib->redirect_msg('Admin added successfully','success','admin/admins');
+		}else{
+			$this->lib->redirect_msg('Admin could not be added successfully','danger','admin/admins');
+        }
+
 	}
 
-	public function get_location()
-	{
-		$ip_address = $this->input->get('ip_address');
-		$data = get_location($ip_address);
-		// var_dump($data);
-		echo " ".$data->city.", ".$data->region.", ".$data->country." - ".$data->postal;
-		// $this->load->view('admin/ajax/load_location_info',$data);
-		# code...
-	}
-	public function edit_admin($admin_id){
+	public function edit($admin_id){
 		if(!$admin_id){
 			$this->lib->redirect_msg('Invalid admin id','danger','admin/admins/list');
 		}
@@ -187,51 +154,7 @@ class Admins extends Web_Controller {
 	}
 
 	public function add_admin(){
-		$data['roles'] = $this->lib->get_table('roles');
 		$this->load->view('admin/ajax/add_admin',$data);
-	}
-
-	public function save(){
-		$data = $this->input->post();
-		if($data['new_password']!=$data['confirm_password']){
-			$this->lib->redirect_msg('Confirm Password did not match' ,'danger','admin/admins/list');
-		}
-		//check email unique
-		$check_email = $this->lib->get_row_array('admin',array('email'=>$data['email']));
-		if($check_email){
-			$this->lib->redirect_msg('Email Already an existing admin.','danger','admin/admins/list');
-		}
-
-		//check email mobile
-		$check_mobile = $this->lib->get_row_array('admin',array('admin_mobile'=>$data['mobile']));
-		if($check_mobile){
-			$this->lib->redirect_msg('Mobile number already exist.','danger','admin/admins/list');
-		}
-
-		$new_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
-
-		$ins = array();
-		$ins['name']			=	$data['name'];
-		$ins['email']			=	$data['email'];
-		$ins['admin_mobile']	=	$data['mobile'];
-		$ins['password'] 		= 	$new_password;
-		$ins['role']			=	base64_decode( $data['role']);
-		$ins['added_on'] 		=	time();
-		$ins['status']	 		=	1;
-		$insert_admin 			=	$this->db->insert('admin',$ins);
-		if(!$insert_admin ){
-			$this->lib->redirect_msg('Unable to add admin, please try again soon','danger','admin/admins/list');
-		}
-		$admin_id 				=	$this->db->insert_id();
-
-		if($admin_id ){
-			//del previous created admin
-			//$del_admin		=	$this->lib->del('admin','id',$admin_id);
-			$this->lib->redirect_msg('Admin added successfully','success','admin/admins/list');
-		}else{
-			$this->lib->redirect_msg('Admin could not be added successfully','danger','admin/admins/list');
-        }
-
 	}
 
 	public function reset_pass(){
