@@ -21,7 +21,10 @@ class Admins extends Web_Controller {
 	}
 
 	public function save(){
+
 		$data = $this->input->post();
+		
+		
 		if($data['new_password']!=$data['confirm_password']){
 			$this->lib->redirect_msg('Confirm Password did not match' ,'danger','admin/admins');
 		}

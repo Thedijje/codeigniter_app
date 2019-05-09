@@ -45,7 +45,7 @@ $admin_info	=	$this->session->userdata('admin');
 
     <ol class="breadcrumb">
   <li><a href="<?php echo base_url('admin')?>"><i class='fa fa-dashboard'></i> Dashboard</a></li>
-    <?php if($this->router->fetch_class()!='home'){ echo '<li><a href="'.base_url('admin/'.$this->router->fetch_class()).'">'.$this->router->fetch_class().'</a></li>';}?>
-      <?php if($this->router->fetch_method()!='index'){ echo "<li><a href='".base_url('admin/'.$this->router->fetch_method())."'>".$this->router->fetch_method().'</a></li>';}?>
+    <?php if($this->router->fetch_class()!='home'){ echo '<li><a href="'.base_url('admin/'.$this->router->fetch_class()).'">'.ucfirst($this->router->fetch_class()).'</a></li>';}?>
+      <?php if($this->router->fetch_method()!='index'){ echo "<li><a href='".base_url('admin/'.$this->router->fetch_method())."'>".ucfirst($this->router->fetch_method()).'</a></li>';}?>
     </ol>
 </div>
